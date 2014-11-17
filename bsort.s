@@ -46,13 +46,12 @@ BubbleSort_Loop:
 	SUB	r5, r3, #1		/* store i-1 in r5 */
 	LDR	r6, [r0, r5, LSL #2]	/* r6 = arr[i-1] */
 	LDR	r7, [r0, r3, LSL #2]	/* r7 = arr[i] */
-	CMP	r2, #0
-	BEQ	BubbleSort_Descending
-BubbleSort_Asceding:
+	CMP	r2, #0			/* check if acsending or descending */
+	BEQ	BubbleSort_Descending	/* if(0) sort in descending */
+BubbleSort_Asceding:			/* else sort in ascending */
 	CMP	r6, r7
 	STRGT	r6, [r0, r3, LSL #2]	/* if (r6 > r7) arr[i] =   r6 */
 	STRGT	r7, [r0, r5, LSL #2]	/* if (r6 > r7) arr[i-1] = r7 */
-//	CMP	r3, r1			/* check for more elements to copy */
 
 BubbleSort_LoopEnd:
 	MOVGT	r4, #1			/* swapped = true */
