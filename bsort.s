@@ -8,11 +8,18 @@
 	.code		32
 	.extern	printString
 
+BubbleSort_Descending:
+	CMP	r7, r6
+	STRGT	r6, [r0, r3, LSL #2]	/* if (r6 > r7) arr[i] =   r6 */
+	STRGT	r7, [r0, r5, LSL #2]	/* if (r6 > r7) arr[i-1] = r7 */
+	B	BubbleSort_LoopEnd
+
 /* FUNCTION:	BubbleSort
  * DESCRIPTION: Sort an array of integers using the bubble sort algorithm.
  * C PROTOTYPE: void BubbleSort(int Array[], int ArraySize);
  * PARAMS:	r0: address of Array
  *		r1: the size of Array
+ *		r2: 0 - descending order, any other value - acending order
  * OTHER R:	r3: loop counter
  *		r4: swapped flag (indicate if a swap was made. If not - the
  *		    the array is sorted and we're done.
@@ -35,17 +42,20 @@ BubbleSort_Loop:
 	CMP	r3, r1			/* check for more elements to copy */
 	BEQ	BubbleSort_LoopEnd
 
-	/* if didn't branch - check if element (i-1 > i) */
+	/* if didn't branch - check if (i-1 > i) */
 	SUB	r5, r3, #1		/* store i-1 in r5 */
 	LDR	r6, [r0, r5, LSL #2]	/* r6 = arr[i-1] */
 	LDR	r7, [r0, r3, LSL #2]	/* r7 = arr[i] */
+	CMP	r2, #0
+	BEQ	BubbleSort_Descending
+BubbleSort_Asceding:
 	CMP	r6, r7
-	STRGT	r6, [r0, r3, LSL #2]	/* if (r6 > r7) arr[i-1] = r7 */
-	STRGT	r7, [r0, r5, LSL #2]	/* if (r6 > r7) arr[i] =   r6 */
-	MOVGT	r4, #1			/* swapped = true */
-	CMP	r3, r1			/* check for more elements to copy */
+	STRGT	r6, [r0, r3, LSL #2]	/* if (r6 > r7) arr[i] =   r6 */
+	STRGT	r7, [r0, r5, LSL #2]	/* if (r6 > r7) arr[i-1] = r7 */
+//	CMP	r3, r1			/* check for more elements to copy */
 
 BubbleSort_LoopEnd:
+	MOVGT	r4, #1			/* swapped = true */
 	ADDLT	r3, #1			/* increment counter */
 	BLT	BubbleSort_Loop	/* repeat if more elements */
 
