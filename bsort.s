@@ -10,8 +10,8 @@
 
 BubbleSort_Descending:
 	CMP	r7, r6
-	STRGT	r6, [r0, r3, LSL #2]	/* if (r6 > r7) arr[i] =   r6 */
-	STRGT	r7, [r0, r5, LSL #2]	/* if (r6 > r7) arr[i-1] = r7 */
+	STRGT	r6, [r0, r3, LSL #2]	/* if (r7 > r6) arr[i] =   r6 */
+	STRGT	r7, [r0, r5, LSL #2]	/* if (r7 > r6) arr[i-1] = r7 */
 	B	BubbleSort_LoopEnd
 
 /* FUNCTION:	BubbleSort
