@@ -9,6 +9,7 @@ extern void turnLedOn(void);
 extern void turnLedOff(void);
 extern uint32_t getPressedButton(void);
 
+/* As defined in gpio.s:getPressedButton() */
 #define BUT1   1
 #define BUT2   2
 #define CENTER 3
