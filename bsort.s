@@ -29,10 +29,7 @@ BubbleSort_Descending:
  * RETURN:	none
  */
 BubbleSort:
-	STMFD	r13!, {r0-r3, lr}
-	LDR	r0, =message1
-	BL	printString
-	LDMFD	r13!, {r0-r3, lr}
+	STMFD	r13!, {r0-r7, lr}
 
 	MOV	r3, #1			/* initialize loop counter	*/
 	MOV	r4, #0			/* initialize swapped flag	*/
@@ -64,16 +61,4 @@ BubbleSort_Again:
 	MOVEQ	r3, #1			/* i = 1 */
 	BEQ	BubbleSort_Loop	/* loop again */
 
-BubbleSort_End:
-	STMFD	r13!, {r0-r3, lr}
-	LDR	r0, =message2
-	BL	printString
-	LDMFD	r13!, {r0-r3, lr}
-
-	MOV	pc, lr
-
-message1:
-	.string	"\nSorting...\n"
-
-message2:
-	.string	"\ndone!\n"
+	LDMFD	r13!, {r0-r7, pc}
