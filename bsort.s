@@ -40,7 +40,7 @@ BubbleSort:
 	/* for (int i = 1; i < ArraySize; ++i) */
 BubbleSort_Loop:
 	CMP	r3, r1			/* check for more elements to copy */
-	BEQ	BubbleSort_LoopEnd
+	BEQ	BubbleSort_Again
 
 	/* if didn't branch - check if (i-1 > i) */
 	SUB	r5, r3, #1		/* store i-1 in r5 */
@@ -55,13 +55,13 @@ BubbleSort_Asceding:			/* else sort in ascending */
 
 BubbleSort_LoopEnd:
 	MOVGT	r4, #1			/* swapped = true */
-	ADDLT	r3, #1			/* increment counter */
-	BLT	BubbleSort_Loop	/* repeat if more elements */
+	ADD	r3, #1			/* increment counter */
+	B	BubbleSort_Loop	/* repeat if more elements */
 
 BubbleSort_Again:
 	CMP	r4, #1			/* if (swapped) */
 	MOVEQ	r4, #0			/* reset swapped flag */
-	MOVEQ	r3, #0			/* i = 0 */
+	MOVEQ	r3, #1			/* i = 1 */
 	BEQ	BubbleSort_Loop	/* loop again */
 
 BubbleSort_End:
